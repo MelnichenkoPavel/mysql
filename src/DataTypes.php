@@ -378,6 +378,13 @@ final class DataTypes
 
     public static function decodeUnsigned64(string $str)
     {
+        trigger_error(\json_encode([
+            'message' => var_export([
+                'str' => $str,
+                'trace' => debug_backtrace()
+            ], true)
+        ]));
+
         \assert(\extension_loaded("gmp"), "The GMP extension is required for UNSIGNED BIGINT fields");
         return \gmp_strval(\gmp_import(\substr($str, 0, 8), 1, \GMP_LSW_FIRST));
     }
